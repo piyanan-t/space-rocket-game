@@ -594,8 +594,8 @@ function spawnRocket() {
 // ===== UPDATE =====
 function update() {
   // Move player — A/D เท่านั้น
-  if (keys['a'] || keys['A']) player.x = Math.max(player.w / 2, player.x - player.speed);
-  if (keys['d'] || keys['D']) player.x = Math.min(W - player.w / 2, player.x + player.speed);
+  if (leftPressed) player.x = Math.max(player.w / 2, player.x - player.speed);
+  if (rightPressed) player.x = Math.min(W - player.w / 2, player.x + player.speed);
 
   // ยิงอัตโนมัติเมื่อกดเมาส์ค้างไว้
   if (mouseDown && shootCooldown <= 0) {
@@ -786,14 +786,16 @@ document.getElementById('nameInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') startGame();
 });
 
+let leftPressed = false;
+let rightPressed = false;
+
 document.addEventListener('keydown', e => {
-  if (['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key)) e.preventDefault();
-  if (e.key === 'a' || e.key === 'A') keys['a'] = true;
-  if (e.key === 'd' || e.key === 'D') keys['d'] = true;
+  if (e.key === 'a' || e.key === 'A' || e.key === 'ฟ') { leftPressed = true; e.preventDefault(); }
+  if (e.key === 'd' || e.key === 'D' || e.key === 'ก') { rightPressed = true; e.preventDefault(); }
 });
 document.addEventListener('keyup', e => {
-  if (e.key === 'a' || e.key === 'A') keys['a'] = false;
-  if (e.key === 'd' || e.key === 'D') keys['d'] = false;
+  if (e.key === 'a' || e.key === 'A' || e.key === 'ฟ') leftPressed = false;
+  if (e.key === 'd' || e.key === 'D' || e.key === 'ก') rightPressed = false;
 });
 
 // เมาส์ยิง — กดค้างได้
